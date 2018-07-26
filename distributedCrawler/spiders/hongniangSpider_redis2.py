@@ -46,7 +46,6 @@ class HongniangspiderSpider(RedisCrawlSpider):
         item['soliloquy'] = self.get_soliloquy(response)
         # 用户的性别
         item['gender'] = self.get_gender(response)
-        print (item)
         yield item
 
 
