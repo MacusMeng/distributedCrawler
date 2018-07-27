@@ -7,4 +7,7 @@ from scrapy import cmdline
 #cmdline.execute("scrapy crawl hongniangSpider".split())
 
 #lpush anju:start_urls https://wh.zu.anjuke.com/fangyuan/hongshana/
-cmdline.execute("scrapy crawl anjuke".split())
+#mdline.execute("scrapy crawl anjuke".split())
+
+#妹子图住抓取
+cmdline.execute("scrapy crawl Meizitu".split())

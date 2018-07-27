@@ -87,10 +87,20 @@ ROBOTSTXT_OBEY = False
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+#覆盖默认请求头，可以自己编写Downloader Middlewares设置代理和UserAgent
+DEFAULT_REQUEST_HEADERS = {
+    'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Encoding':'gzip, deflate, sdch',
+    'Accept-Language':'zh-CN,zh;q=0.8',
+    'Connection':'keep-alive',
+    'Host':'www.meizitu.com',
+    'Upgrade-Insecure-Requests': '1',
+    'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3013.3 Safari/537.36'
+}
 ITEM_PIPELINES = {
     # 'distributedCrawler.pipelines.JsonWithEncodingCSDNPipeline': 300,
-    'distributedCrawler.pipelines.MysqlPipeline':300,
-    # 'distributedCrawler.pipelines.JiandanPipeline':300
+    'distributedCrawler.pipelines.MyPipeline':300,
+    'distributedCrawler.pipelines.DownloadImagesPipeline':3
 }
 DOWNLOADER_MIDDLEWARES = {
     # 设置不参与scrapy的自动重试的动作
@@ -117,3 +127,8 @@ MYSQL_CHARSET='utf8'
 
 IMAGES_STORE='E:\\data\\picture'
 DOWNLOAD_DELAY = 0.25
+USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+ROBOTSTXT_OBEY = True
+IMAGES_EXPIRES = 90             # 过期天数
+IMAGES_MIN_HEIGHT = 100         # 图片的最小高度
+IMAGES_MIN_WIDTH = 100          # 图片的最小宽度
