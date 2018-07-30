@@ -10,4 +10,8 @@ from scrapy import cmdline
 #mdline.execute("scrapy crawl anjuke".split())
 
 #妹子图住抓取
-cmdline.execute("scrapy crawl Meizitu".split())
+#http://www.meizitu.com/
+# cmdline.execute("scrapy crawl Meizitu".split())
+
+#煎蛋妹子图住抓取
+cmdline.execute("scrapy crawl jiandan".split())

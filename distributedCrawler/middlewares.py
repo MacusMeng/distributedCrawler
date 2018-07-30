@@ -6,7 +6,7 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-
+from selenium import webdriver
 from scrapy.http import HtmlResponse
 
 
@@ -124,14 +124,14 @@ def spider_opened(self, spider):
 # from scrapy.http import HtmlResponse
 #
 #
-# class JSPageMiddleware(object):
-#     def process_request(self, request, spider):
-#         if spider.name == 'web_redis':
-#             chrome_options = webdriver.ChromeOptions()
-#             # 使用headless无界面浏览器模式
-#             chrome_options.add_argument('--headless')
-#             chrome_options.add_argument('--disable-gpu')
-#             brower = webdriver.Chrome('F:\\software\\chrome\\chromedriver.exe',0,chrome_options)
-#             brower.get(request.url)
-#             print('访问:{0}'.format(request.url))
-#             return HtmlResponse(url=brower.current_url, body=brower.page_source, encoding='utf-8', request=request)
+class JSPageMiddleware(object):
+    def process_request(self, request, spider):
+        if spider.name == 'jiandan':
+            chrome_options = webdriver.ChromeOptions()
+            # 使用headless无界面浏览器模式
+            chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--disable-gpu')
+            brower = webdriver.Chrome('F:\\software\\chrome\\chromedriver.exe', 0, chrome_options)
+            brower.get(request.url)
+            print('访问:{0}'.format(request.url))
+            return HtmlResponse(url=brower.current_url, body=brower.page_source, encoding='utf-8', request=request)
