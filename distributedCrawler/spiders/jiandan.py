@@ -17,9 +17,9 @@ class JianDanSpider(RedisSpider):
     }
 
     # 页面的分页
-    page_lx = LinkExtractor(allow=('page-\d+\#comments'))
+    page_lx = LinkExtractor(allow=('//jandan.net/ooxx/page-\d+\#comments'))
     # 详细的信息
-    self_lx = LinkExtractor(allow=('page-\d+\#comments'))
+    self_lx = LinkExtractor(allow=('//jandan.net/ooxx/page-\d+\#comments'))
     # 规则
     rules = (
         Rule(page_lx, follow=True),
@@ -32,22 +32,12 @@ class JianDanSpider(RedisSpider):
         item = MeizituItem()
         item['tags'] = '煎蛋'
         item['name'] = '美女'
-        item['image_urls'] = []
-        # sites = soup.findAll("a", {'class': 'view_img_link'})
-        # # urls =response.xpath('//div[@class="text"]/p/img/@src').extract()
-        # for site in sites:
-        #     image_url = site.get('href')
-        #     if not image_url.startswith('http'):
-        #         image_url = 'http:' + image_url
-        #     item['image_urls'].append(image_url)
-        #     soup = BeautifulSoup(data, "html.parser")  # 解析网页
-        images = soup.select("a.view_img_link")  # 定位元素
-        for i in images:
-            z = i.get('href')
-            if str('gif') in str(z):
-                pass
-            else:
-                http_url = "http:" + z
-                item['image_urls'].append(http_url)
-                print(http_url)
+        item['image_urls']=[]
+        sites=soup.findAll("a",{'class':'view_img_link'})
+        # urls =response.xpath('//div[@class="text"]/p/img/@src').extract()
+        for site in sites:
+            image_url=site.get('href')
+            if not image_url.startswith('http'):
+                image_url = 'http:' +image_url
+            item['image_urls'].append(image_url)
         yield item

@@ -11,7 +11,5 @@ from scrapy import cmdline
 
 #妹子图住抓取
 #http://www.meizitu.com/
-# cmdline.execute("scrapy crawl Meizitu".split())
+cmdline.execute("scrapy crawl Meizitu".split())
 
-#煎蛋妹子图住抓取
-cmdline.execute("scrapy crawl jiandan".split())

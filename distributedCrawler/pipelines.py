@@ -8,7 +8,6 @@ from distributedCrawler.DBHelper import MysqlHelper
 import os
 import requests
 from scrapy.http import Request
-from scrapy.exceptions import DropItem
 from distributedCrawler.settings import IMAGES_STORE
 from scrapy.contrib.pipeline.images import ImagesPipeline
 
@@ -70,7 +69,6 @@ class DownloadImagesPipeline(ImagesPipeline):
     def file_path(self, request, response=None, info=None):
         item = request.meta['item']  # 通过上面的meta传递过来item
         index = item['tags']  # 图片分类
-
         filename=''
         # 图片文件名
         names = request.url.split('/')
