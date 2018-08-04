@@ -8,9 +8,8 @@ from distributedCrawler.DBHelper import MysqlHelper
 import os
 import requests
 from scrapy.http import Request
-from scrapy.exceptions import DropItem
 from distributedCrawler.settings import IMAGES_STORE
-from scrapy.contrib.pipeline.images import ImagesPipeline
+from scrapy.pipelines.images import ImagesPipeline
 
 mysql = MysqlHelper()
 
@@ -21,6 +20,7 @@ class DistributedcrawlerPipeline(object):
 
 
 class MyPipeline(ImagesPipeline):
+    headers = {'User-Agent': "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"}
     def process_item(self, item, spider):
         if spider.name == 'web_redis':
             sql = 'insert into web(url,title,keyword,meta,content)  values(%s,%s,%s,%s,%s)'
@@ -36,7 +36,7 @@ class MyPipeline(ImagesPipeline):
                 , str(item['height']), str(item['ismarried']), str(item['yearincome']), str(item['education'])
                 , str(item['workaddress']), str(item['soliloquy']), str(item['gender'])]
             mysql.insert(sql=sql, params=params)
-        if spider.name == 'jiandan':
+        if spider.name == 'Meizitu3Weee':
             if 'image_urls' in item:  # 如何‘图片地址’在项目中
                 images = []  # 定义图片空集
             dir_path = '%s/%s' % (IMAGES_STORE, spider.name)
@@ -52,7 +52,8 @@ class MyPipeline(ImagesPipeline):
                     continue
 
                 with open(file_path, 'wb') as handle:
-                    response = requests.get(image_url, stream=True)
+                    self.headers['referer']= image_url
+                    response = requests.get(image_url, stream=True,headers=self.headers)
                     for block in response.iter_content(1024):
                         if not block:
                             break
@@ -63,20 +64,21 @@ class MyPipeline(ImagesPipeline):
 
 # 图片下载方法一
 class DownloadImagesPipeline(ImagesPipeline):
+    headers = {'User-Agent': "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"}
     def get_media_requests(self, item, info):  # 下载图片
         for image_url in item['image_urls']:
-            yield Request(image_url,meta={'item': item, 'index': item['image_urls'].index(image_url)})  # 添加meta是为了下面重命名文件名使用
+            self.headers['referer']= image_url
+            yield Request(image_url,meta={'item': item, 'index': item['image_urls'].index(image_url)},headers=self.headers)  # 添加meta是为了下面重命名文件名使用
 
     def file_path(self, request, response=None, info=None):
         item = request.meta['item']  # 通过上面的meta传递过来item
         index = item['tags']  # 图片分类
-
         filename=''
         # 图片文件名
         names = request.url.split('/')
         image_guid = names[len(names) - 1]
         if not image_guid.endswith('gif'):
-            filename = u'full/{0}/{1}/{2}'.format(index, item['name'], image_guid)
+            filename = u'妹子图/{0}/{1}/{2}'.format(index, item['name'], image_guid)
         return filename
 
 

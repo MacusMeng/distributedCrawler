@@ -83,7 +83,10 @@ class DistributedcrawlerDownloaderMiddleware(object):
         # content = self.selenium_request(request.url)
         # if content.strip() != '':
         #     return HtmlResponse(request.url, encoding='utf-8', body=content, request=request)
-        return None
+        referer = request.meta.get('referer', None)
+        if referer:
+            request.headers['referer'] = referer
+        # return None
         # # return None
         # return HtmlResponse(request.url, encoding='utf-8', body=content, request=request)
 
