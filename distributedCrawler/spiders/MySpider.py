@@ -4,7 +4,8 @@ from bs4 import BeautifulSoup
 import scrapy
 import re
 from distributedCrawler.items import PaperItem
-from urllib.parse import urlparse
+import urlparse
+
 
 class MySpider(RedisSpider):
     """Spider that reads urls from redis queue (myspider:start_urls)."""

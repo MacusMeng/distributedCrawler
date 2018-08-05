@@ -8,6 +8,7 @@
 from scrapy import signals
 from selenium import webdriver
 from scrapy.http import HtmlResponse
+from distributedCrawler.settings import CHROME_PATH
 
 
 class DistributedcrawlerSpiderMiddleware(object):
@@ -134,7 +135,7 @@ class JSPageMiddleware(object):
             # 使用headless无界面浏览器模式
             chrome_options.add_argument('--headless')
             chrome_options.add_argument('--disable-gpu')
-            brower = webdriver.Chrome('F:\\software\\chrome\\chromedriver.exe', 0, chrome_options)
+            brower = webdriver.Chrome(CHROME_PATH, 0, chrome_options)
             brower.get(request.url)
             print('访问:{0}'.format(request.url))
             return HtmlResponse(url=brower.current_url, body=brower.page_source, encoding='utf-8', request=request)

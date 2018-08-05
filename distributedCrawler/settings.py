@@ -42,9 +42,14 @@ MYSQL_PASSWD='actbd'
 MYSQL_PORT=3306
 MYSQL_CHARSET='utf8'
 
-IMAGES_STORE='E:\\data\\picture'
+CHROME_PATH='/usr/local/bin/chromedriver'
+IMAGES_STORE='/Users/mengruo/Pictures/picture'
 DOWNLOAD_DELAY = 0.25
 IMAGES_EXPIRES = 90             # 过期天数
 IMAGES_MIN_HEIGHT = 100         # 图片的最小高度
 IMAGES_MIN_WIDTH = 100          # 图片的最小宽度
+
+
+#日志设置
+LOG_LEVEL = "INFO"
 

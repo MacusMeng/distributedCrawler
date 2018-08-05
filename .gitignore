@@ -3,3 +3,7 @@
 *.iml
 *.iml
 .idea/workspace.xml
+.DS_Store
+.idea/misc.xml
+.pyc
+*.pyc
